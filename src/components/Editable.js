@@ -45,16 +45,16 @@ export const CustomEditableInput = ({ defaultText, type = EditableInput, name, o
             {
                 type === 'date' ?
                     <Flex flexDirection="column" alignItems="start">
-                        <Input name={name} type="datetime-local" defaultValue={moment(defaultText).toISOString().slice(0, 16)} onChange={onChange} />
+                        <Input data-testid="editable-date-input" name={name} type="datetime-local" defaultValue={moment(defaultText).toISOString().slice(0, 16)} onChange={onChange} />
                     </Flex>
                     :
                     type === 'textarea' ?
-                        <Flex flexDirection="column" alignItems="start">
+                        <Flex flexDirection="column" alignItems="start" data-testid="editable-textarea">
                             <ReactQuill theme="snow" value={value} onChange={handleChange} />
                         </Flex>
                         :
                         <Flex flexDirection="column" alignItems="start">
-                            <Input name={name} type="text" defaultValue={defaultText} onChange={onChange} />
+                            <Input data-testid="editable-input" name={name} type="text" defaultValue={defaultText} onChange={onChange} />
                         </Flex>
             }
             <EditableControls submit={onSubmit} />

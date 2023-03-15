@@ -35,7 +35,7 @@ const MeetingTable = (props) => {
   } = useHSMeetingContext();
   
   return (
-    <Table colorScheme="gray" background="#fff">
+    <Table data-testid="meeting-table" colorScheme="gray" background="#fff">
       <Thead>
         <Tr>
           <Th>
@@ -100,7 +100,7 @@ const MeetingTable = (props) => {
           <Tr>
             <Td colSpan={5}>
               <Flex justifyContent="center" alignItems="center" minH="200px">
-                { loading ? <Spinner size="xl" color="blue.500" /> : <Text>No result found</Text> }
+                { loading ? <Spinner data-testid="loading-spinner" size="xl" color="blue.500" /> : <Text>No result found</Text> }
               </Flex>
             </Td>
           </Tr>

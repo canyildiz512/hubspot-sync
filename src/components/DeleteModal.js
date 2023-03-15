@@ -25,7 +25,7 @@ export const DeleteConfirmationModal = ({ isOpen, onClose, onDelete }) => {
                     </ModalBody>
                     <ModalFooter>
                         <Flex justifyContent="center" width="100%">
-                            <Button colorScheme="red" mr={3} onClick={onDelete}>
+                            <Button data-testid="delete-confirm-button" colorScheme="red" mr={3} onClick={onDelete}>
                                 Confirm
                             </Button>
                         </Flex>

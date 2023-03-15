@@ -20,7 +20,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { BsFilter } from 'react-icons/bs';
 import { TbSortDescending } from 'react-icons/tb';
 import '../App.css';
-import { DatePopover } from '../components/DatePopOver';
+import { DatePopover } from './DatePopOver';
 import { useHSMeetingContext } from '../contexts/HSMeetingContext';
 
 const sortParams = [
@@ -50,11 +50,11 @@ const FilterControls = () => {
     } = useHSMeetingContext();
 
     return (
-        <Flex justifyContent="space-between" mt={4}>
+        <Flex data-testid="filter-controls" justifyContent="space-between" mt={4}>
             <Flex mb={4} gap="10px">
                 <Popover isOpen={isPopoverOpen} onClose={() => setIsPopoverOpen(false)}>
                     <PopoverTrigger >
-                        <Button className="btn" onClick={() => setIsPopoverOpen(true)}>
+                        <Button data-testid="filter-menu-button" className="btn" onClick={() => setIsPopoverOpen(true)}>
                             <Flex alignItems="center" gap="10px">
                                 <BsFilter /> <Text>Filter</Text>
                             </Flex>
@@ -64,16 +64,16 @@ const FilterControls = () => {
                         <PopoverContent>
                             <PopoverArrow />
                             <PopoverBody>
-                                <Flex flexDirection="column" gap="10px">
-                                    <Input name="hs_meeting_title" placeholder="name" value={filterObject?.hs_meeting_title} onChange={handleChangeFilterInput} />
-                                    <Select name="hubspot_owner_id" placeholder="Select Account" onChange={handleChangeFilterInput}>
+                                <Flex data-testid="filter-menu" flexDirection="column" gap="10px">
+                                    <Input data-testid="filter-meeting-title-input" name="hs_meeting_title" placeholder="name" value={filterObject?.hs_meeting_title} onChange={handleChangeFilterInput} />
+                                    <Select data-testid="filter-owner-select" name="hubspot_owner_id" placeholder="Select Account" onChange={handleChangeFilterInput}>
                                         {
                                             owners.map((owner, i) => <option key={i} value={owner?.value}>{owner?.label}</option>)
                                         }
                                     </Select>
                                     <Flex justifyContent="space-between" mt="3" pt="2" borderTop="1px solid #77777734">
-                                        <Button onClick={handleSubmitFilter}>Apply Changes</Button>
-                                        <Button onClick={resetFilter}>Reset</Button>
+                                        <Button data-testid="filter-apply-button" onClick={handleSubmitFilter}>Apply Changes</Button>
+                                        <Button data-testid="filter-reset-button" onClick={resetFilter}>Reset</Button>
                                     </Flex>
                                 </Flex>
                             </PopoverBody>
@@ -81,23 +81,23 @@ const FilterControls = () => {
                     </Portal>
                 </Popover>
                 <Menu>
-                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />} className="btn">
+                    <MenuButton data-testid="actions-menu-button" as={Button} rightIcon={<ChevronDownIcon />} className="btn">
                         Actions
                     </MenuButton>
                     <MenuList>
-                        <MenuItem isDisabled={Object.values(selected).filter(val => val === true).length === 0} onClick={() => setIsEditClicked(!isEditClicked)}>Edit</MenuItem>
-                        <MenuItem isDisabled={Object.values(selected).filter(val => val === true).length === 0} onClick={toggleModal}>Delete</MenuItem>
+                        <MenuItem data-testid="actions-save-menu-item" isDisabled={Object.values(selected).filter(val => val === true).length === 0} onClick={() => setIsEditClicked(!isEditClicked)}>Edit</MenuItem>
+                        <MenuItem data-testid="actions-delete-menu-item" isDisabled={Object.values(selected).filter(val => val === true).length === 0} onClick={toggleModal}>Delete</MenuItem>
                     </MenuList>
                 </Menu>
             </Flex>
             <Flex mb={4} gap="10px">
                 <Menu>
-                    <MenuButton as={Button} className="btn">
+                    <MenuButton data-testid="sort-menu-button" as={Button} className="btn">
                         <Flex alignItems="center" gap="10px">
                             <TbSortDescending /> <Text>Sort: {selectedSortParams}</Text>
                         </Flex>
                     </MenuButton>
-                    <MenuList>
+                    <MenuList data-testid="sort-menu-list">
                         {
                             sortParams.map((param, i) => <MenuItem key={i} onClick={() => handleSort(param)}>Sort: {param}</MenuItem>)
                         }

@@ -17,14 +17,14 @@ const FooterControls = ({ onClickPrevious, onClickNext }) => {
     const { limit, setLimit, meta, total, start } = useHSMeetingContext();
 
     return (
-        <Flex alignItems="center" justifyContent="space-between" mt="5">
+        <Flex data-testid="footer-controls" alignItems="center" justifyContent="space-between" mt="5">
             <Flex gap="10px" alignItems="center">
-                <Text>Showing {start} to {meta?.next?.after || total} of {total} results</Text>
+                <Text data-testid="pagination-text">Showing {start} to {meta?.next?.after || total} of {total} results</Text>
                 <Menu>
-                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />} className="btn">
+                    <MenuButton data-testid="page-size-menu-button" as={Button} rightIcon={<ChevronDownIcon />} className="btn">
                         {limit}
                     </MenuButton>
-                    <MenuList>
+                    <MenuList  data-testid="page-size-menu-list">
                         <MenuItem onClick={() => setLimit(5)}>5</MenuItem>
                         <MenuItem onClick={() => setLimit(10)}>10</MenuItem>
                         <MenuItem onClick={() => setLimit(20)}>20</MenuItem>
@@ -34,8 +34,8 @@ const FooterControls = ({ onClickPrevious, onClickNext }) => {
                 </Menu>
             </Flex>
             <Flex gap="10px">
-                <Button className="btn" isDisabled={start <= 1} onClick={start > 1 && onClickPrevious}>Previous</Button>
-                <Button className="btn" isDisabled={limit >= total} onClick={limit < total && onClickNext}>Next</Button>
+                <Button data-testid="prev-page-button" className="btn" isDisabled={start <= 1} onClick={start > 1 ? onClickPrevious : undefined}>Previous</Button>
+                <Button data-testid="next-page-button" className="btn" isDisabled={limit >= total} onClick={limit < total ? onClickNext : undefined}>Next</Button>
             </Flex>
         </Flex>
     );
